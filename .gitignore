@@ -6,3 +6,7 @@ __pycache__/
 bc_finetune/
 visual_features/
 *.egg-info/
+.vscode/
+.idea/
+*.ipynb
+wandb/
