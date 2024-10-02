@@ -16,6 +16,7 @@ from functools import partial
 import timm.models.vision_transformer
 import torch
 import torch.nn as nn
+from hydra.utils import to_absolute_path
 from timm.models.vision_transformer import resize_pos_embed
 
 
@@ -226,7 +227,7 @@ def vit_huge_patch14(**kwargs):
 def load_vit(model, restore_path):
     if restore_path:
         print("Restoring model from", restore_path)
-        state_dict = torch.load(restore_path, map_location="cpu")
+        state_dict = torch.load(to_absolute_path(restore_path), map_location="cpu")
         state_dict = (
             state_dict["features"] if "features" in state_dict else state_dict["model"]
         )

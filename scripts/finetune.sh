@@ -1,0 +1,1 @@
+python finetune.py exp_name=test agent=diffusion_unet task=aloha agent/features=vit_base agent.features.restore_path=data/visual_features/vit_base/DH_1M.pth buffer_path=data/datasets/mobile_aloha/cabinet/buf.pkl trainer=bc_cos_sched ac_chunk=16 wandb.debug=True batch_size=40

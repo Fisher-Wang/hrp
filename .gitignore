@@ -10,3 +10,4 @@ visual_features/
 .idea/
 *.ipynb
 wandb/
+data/

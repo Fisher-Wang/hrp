@@ -8,16 +8,16 @@ defaults:
   - agent: default
   - task: end_effector
   - trainer: bc
-  - override hydra/launcher: slurm
+  # - override hydra/launcher: slurm
   - _self_
 
 
 hydra:
   run:
     dir: bc_finetune/${exp_name}/wandb_${wandb.name}_${hydra:runtime.choices.task}_${hydra:runtime.choices.agent/features}_${now:%Y-%m-%d_%H-%M-%S}
-  sweep:
-    dir: ${base:}/../bc_finetune/${exp_name}/${now:%Y-%m-%d_%H-%M-%S}
-    subdir: run${hydra:job.num}_${hydra:runtime.choices.task}_${hydra:runtime.choices.agent/features}
+  # sweep:
+  #   dir: ${base:}/../bc_finetune/${exp_name}/${now:%Y-%m-%d_%H-%M-%S}
+  #   subdir: run${hydra:job.num}_${hydra:runtime.choices.task}_${hydra:runtime.choices.agent/features}
 
 rt: ${hydra:runtime.choices.agent/features}
 

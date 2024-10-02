@@ -12,6 +12,7 @@ import shutil
 import numpy as np
 import torch
 import tqdm
+from hydra.utils import to_absolute_path
 from robobuf import ReplayBuffer as RB
 from tensorflow.io import gfile
 from torch.utils.data import Dataset, IterableDataset
@@ -57,6 +58,7 @@ class ReplayBuffer(Dataset):
         self, buffer_path, transform=None, n_train_demos=200, mode="train", ac_chunk=1
     ):
         assert mode in ("train", "test"), "Mode must be train/test"
+        buffer_path = to_absolute_path(buffer_path)
         buffer_data = self._load_buffer(buffer_path)
         assert len(buffer_data) >= n_train_demos, "Not enough demos!"
 
@@ -145,6 +147,7 @@ class RobobufReplayBuffer(ReplayBuffer):
         past_frames=0,
         ac_dim=7,
     ):
+        buffer_path = to_absolute_path(buffer_path)
         assert mode in ("train", "test"), "Mode must be train/test"
         buf = _cached_load(buffer_path)
         assert len(buf) > n_test_trans, "Not enough transitions!"
@@ -194,6 +197,7 @@ class RobobufReplayBuffer(ReplayBuffer):
                     loss_mask.append(0.0)
 
             a_t = np.concatenate(chunked_actions, 0).astype(np.float32)
+            print(a_t.shape, ac_dim)
             assert ac_dim == a_t.shape[-1]
 
             loss_mask = np.array(loss_mask, dtype=np.float32)
